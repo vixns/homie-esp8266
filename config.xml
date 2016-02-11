@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns = "http://www.w3.org/ns/widgets"
-  xmlns:gap = "http://phonegap.com/ns/1.0"
-  id = "fr.marvinroger.homie-esp8266"
-  versionCode = "1"
-  version = "1.0.0" >
-
+xmlns:gap = "http://phonegap.com/ns/1.0"
+id = "fr.marvinroger.homie-esp8266"
+versionCode = "1"
+version = "1.0.0" >
   <preference name="phonegap-version" value="cli-6.0.0" />
 
   <name>Homie Setup</name>
 
   <description>Setup your Homie device</description>
 
-	<platform name="android" />
-	<platform name="winphone" />
+  <platform name="android" />
+  <platform name="winphone" />
 
-	<icon src="public/img/logo.png" />
-	<splash src="public/img/logo.png" />
+  <icon src="public/img/logo.png" />
+  <splash src="public/img/logo.png" />
 
-	<feature name="http://api.phonegap.com/1.0/network" />
+  <feature name="http://api.phonegap.com/1.0/network" />
 
-	<plugin name="cordova-plugin-whitelist" version="1" />
+  <plugin name="cordova-plugin-whitelist" version="1" />
+  <plugin name='org.crosswalk.engine' version="1.3.0" source="pgb" />
   <access origin="http://homie.config" />
 </widget>
