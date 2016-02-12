@@ -1,5 +1,4 @@
-# In official nodejs image, SSH deployment doesn't work
-box: phusion/passenger-nodejs
+box: node:4
 build:
   steps:
     - npm-install
@@ -30,14 +29,8 @@ deploy:
     - add-to-known_hosts:
         hostname: github.com
         fingerprint: ad:1c:08:a4:40:e3:6f:9c:f5:66:26:5d:4b:33:5d:8c
-    - mktemp:
-        envvar: PRIVATEKEY_PATH
-    - create-file:
-        name: write private key
-        filename: $PRIVATEKEY_PATH
-        content: $SSH_PRIVATE
-        overwrite: true
-        hide-from-log: true
+    - add-ssh-key:
+        keyname: SSH
     - script:
         name: configure git
         code: |-
@@ -52,7 +45,7 @@ deploy:
           git add .
           git commit -m "Deploy commit from $WERCKER_STARTED_BY ($WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY@$WERCKER_GIT_COMMIT)"
           git remote add origin git@github.com:marvinroger/homie-esp8266.git
-          ssh-agent bash -c "ssh-add $PRIVATEKEY_PATH; git push -f origin gh-pages"
+          git push -f origin gh-pages
     - script:
         name: trigger PhoneGap Build
         code: curl -X PUT -d 'data={"pull":"true"}' https://build.phonegap.com/api/v1/apps/1906578?auth_token=$PGB_TOKEN
